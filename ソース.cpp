@@ -154,6 +154,118 @@ bool Nor(const bool& A, const bool& B) {
 bool Equal(const bool& A, const bool& B) {
     return !(A ^ B);
 }
+bool AndEQ(BigInt& In, BigInt& B) {
+    BigInt C = And(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt And(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X = And(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool OrEQ(BigInt& In, BigInt& B) {
+    BigInt C = Or(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Or(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X = Or(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool NotEQ(BigInt& In, BigInt& B) {
+    BigInt C = Not(In);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Not(BigInt& In) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X = Not(In, i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool XorEQ(BigInt& In, BigInt& B) {
+    BigInt C = Or(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Xor(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X = Xor(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool NandEQ(BigInt& In, BigInt& B) {
+    BigInt C = Or(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Nand(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X =Nand(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool NorEQ(BigInt& In, BigInt& B) {
+    BigInt C = Or(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Nor(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X =Nor(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
+bool EqualEQ(BigInt& In, BigInt& B) {
+    BigInt C = Or(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
+BigInt Equal(BigInt& In, BigInt& B) {
+
+    BigInt C = ConstructBigInt();
+
+    for (size_t i = 0; i < BitCount(B); i++) {
+        bool X =Equal(In, BitIndex(B, i),i);
+        BitPush(C, X);
+    }
+    return C;
+}
 /**/
 template<class T>
 struct Pair {
@@ -290,6 +402,12 @@ BigInt RightShift(BigInt& In, size_t X) {
     }
     return B;
 }
+bool MulEQ(BigInt& In, BigInt B) {
+    BigInt C = Mul(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
 BigInt  Mul(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
     size_t L = BitCount(B);
@@ -308,7 +426,12 @@ BigInt  Mul(BigInt& In, BigInt& B) {
     /**/
     return C;
 }
-
+bool DivEQ(BigInt& In, BigInt B) {
+    BigInt C = Div(In, B);
+    Free(In);
+    In = C;
+    return true;
+}
 BigInt  Div(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
     size_t L = BitCount(B);
@@ -320,6 +443,7 @@ BigInt  Div(BigInt& In, BigInt& B) {
     }
     return C;
 }
+
 BigInt Mod(BigInt& In, BigInt B) {
     BigInt C = Div(In, B);
     BigInt D = Mul(C, B);
