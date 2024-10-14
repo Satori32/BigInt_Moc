@@ -1,19 +1,15 @@
-/** /#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-
-#include "Vector.h"
-
-struct BigInt
-{
-    Vector<uint8_t> Dight;
-    size_t Use = 0;
-};
+#include "BigInt.h"
 
 BigInt ConstructBigInt() {
     BigInt B;
     B.Dight = ConstructVector<uint8_t>(16);
     B.Use = 0;
+    return B;
+}
+
+BigInt ConstructBigInt(char* Number, size_t L) {
+    BigInt B;
+    From(B, Number, L);
     return B;
 }
 
@@ -39,7 +35,7 @@ int BitIndex(BigInt& In, size_t N) {
     if (Index(In, X + 1) == NULL) { return -1; }
     uint8_t Z = *Index(In.Dight, X + 1);
 
-    return (Z & (1 << Y)) > 0 ? 1: 0;
+    return (Z & (1 << Y)) > 0 ? 1 : 0;
 }
 bool SetBit(BigInt& In, size_t Idx, bool B) {
     if (Idx > BitCount(In)) { return -1; }
@@ -48,10 +44,10 @@ bool SetBit(BigInt& In, size_t Idx, bool B) {
     size_t Y = Idx % 8;
     if (Index(In, X + 1) == NULL) { return false; }
     uint8_t Z = *Index(In.Dight, X + 1);
-    
-    uint8_t A = 0^0;
+
+    uint8_t A = 0 ^ 0;
     uint8_t B = (1 << Y) ^ 0;
-    uint8_t C = (Z& B)& (B<<Y);
+    uint8_t C = (Z & B) & (B << Y);
 
     Back(In.Dight) = C;
 
@@ -74,8 +70,8 @@ BigInt Duplicate(BigInt& In) {
 }
 
 
-bool BitPush(BigInt& In,bool B) {
-    size_t N = BitCount(In)+1;
+bool BitPush(BigInt& In, bool B) {
+    size_t N = BitCount(In) + 1;
 
     if (SetBit(In, N++, B) == false) { return false; };
     In.Use++;
@@ -97,7 +93,7 @@ bool Or(BigInt& In, bool B, size_t N) {
     return Y;
 }
 
-bool Not(BigInt& In,size_t N) {
+bool Not(BigInt& In, size_t N) {
     bool Y = BitIndex(In, N);
     return !Y;
 }
@@ -128,7 +124,7 @@ bool Equal(BigInt& In, bool B, size_t N) {
     bool Y = BitIndex(In, N) ^ BitIndex(X, N);
     Free(X);
     return !Y;
-}/** /
+}/**/
 bool And(const bool& A, const bool& B) {
     return A & B;
 }
@@ -165,7 +161,7 @@ BigInt And(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X = And(In, BitIndex(B, i),i);
+        bool X = And(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
@@ -181,7 +177,7 @@ BigInt Or(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X = Or(In, BitIndex(B, i),i);
+        bool X = Or(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
@@ -213,7 +209,7 @@ BigInt Xor(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X = Xor(In, BitIndex(B, i),i);
+        bool X = Xor(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
@@ -229,7 +225,7 @@ BigInt Nand(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X =Nand(In, BitIndex(B, i),i);
+        bool X = Nand(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
@@ -245,7 +241,7 @@ BigInt Nor(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X =Nor(In, BitIndex(B, i),i);
+        bool X = Nor(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
@@ -261,12 +257,12 @@ BigInt Equal(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
 
     for (size_t i = 0; i < BitCount(B); i++) {
-        bool X =Equal(In, BitIndex(B, i),i);
+        bool X = Equal(In, BitIndex(B, i), i);
         BitPush(C, X);
     }
     return C;
 }
-/** /
+/**/
 template<class T>
 struct Pair {
     T A = 0;
@@ -299,8 +295,8 @@ template<class T>
 T Min(T A,T B) {
     return A < B ? A : B;
 }
-/** /
-/** /
+/**/
+/**/
 template<class T>
 const T& Max(const T& A, const T& B) {
     return A > B ? A : B;
@@ -309,32 +305,48 @@ template<class T>
 const T& Min(const T& A, const T& B) {
     return A < B ? A : B;
 }
+/**/
 /** /
-
 BigInt OrEQ(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
     size_t M = Max(BitCount(In), BitCount(B));
     for (size_t i = 0; i < M; i++) {
-        int A = BitIndex(In,i);
+        int A = BitIndex(In, i);
         int B = BitIndex(In, i);
-        if (Push(C, (A>0?A:0)|(B>0?B:0)) == false) { break; };
+        if (Push(C, (A > 0 ? A : 0) | (B > 0 ? B : 0)) == false) { break; };
     }
     Free(In);
     In = C;
 
     return In;
 }
-
-bool From(BigInt& In,char* S, size_t L) {
-    Free(In);
-    In= ConstructBigInt();
-
+/**/
+template<class T>
+BigInt MakeBasic(const T& X){
     BigInt A = ConstructBigInt();
-    SetBit(A, 0, true);
-    for (intmax_t i = L-1; i >= 0; i--) {
-        char X[2] = {S[i],'\0'}
-        Push(In.Dight, Mul(atoi(X),A));
+    for(size_t i=0;i<sizeof(T)*8;i++){
+        BitPush(A, X&(1 << i));
     }
+
+    return A;
+}
+
+bool From(BigInt& In, char* S, size_t L) {
+    Free(In);
+    In = ConstructBigInt();
+
+    BigInt A = MakeBasic(1);
+    BigInt B = MakeBasic(10);
+    for (intmax_t i = L - 1; i >= 0; i--) {
+        char X[2] = { S[i],'\0' }
+        AddEQ(In, Mul(A,atoi(X));
+        
+        MulEQ(A, B);
+    }
+
+    Free(In);
+    In = A;
+    Free(B);
 
     return true;
 }
@@ -391,14 +403,14 @@ BigInt LeftShift(BigInt& In, size_t X) {
         PushBit(B, false);
     }
     for (size_t i = 0; i < BitCount(In); i++) {
-        PushBit(B, BitIndex(In,i));
+        PushBit(B, BitIndex(In, i));
     }
     return B;
 }
 BigInt RightShift(BigInt& In, size_t X) {
     BigInt B = ConstructBigInt();
     for (size_t i = X; i < BitCount(In); i++) {
-        PushBit(B, BitIndex(In,i));
+        PushBit(B, BitIndex(In, i));
     }
     return B;
 }
@@ -411,9 +423,9 @@ bool MulEQ(BigInt& In, BigInt B) {
 BigInt  Mul(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
     size_t L = BitCount(B);
-    for (size_t i = 0; i < L;i++){
+    for (size_t i = 0; i < L; i++) {
         if (And(B, true, i) == true) {
-            AddEQ(C,LeftShift(In, i));
+            AddEQ(C, LeftShift(In, i));
         }
 
     }
@@ -423,7 +435,7 @@ BigInt  Mul(BigInt& In, BigInt& B) {
             C += (A << X);
         }
     }
-    /** /
+    /**/
     return C;
 }
 bool DivEQ(BigInt& In, BigInt B) {
@@ -432,12 +444,12 @@ bool DivEQ(BigInt& In, BigInt B) {
     In = C;
     return true;
 }
-BigInt  Div(BigInt& In, BigInt& B) {
+BigInt Div(BigInt& In, BigInt& B) {
     BigInt C = ConstructBigInt();
     size_t L = BitCount(B);
-    for (intmax_t i = L; i >= 0;i--){
+    for (intmax_t i = L; i >= 0; i--) {
         if (And(B, true, i) == true) {
-            SubEQ(C,LeftShift(In, i));
+            SubEQ(C, LeftShift(In, i));
         }
 
     }
@@ -453,13 +465,4 @@ BigInt Mod(BigInt& In, BigInt B) {
     Free(D);
 
     return E;
-}
-/**/
-#include <string>
-
-#include "BigInt.h"
-
-int main() {
-    char* S = "12345";
-    BigInt B = ConstructBigInt(S, strlen(S));
 }
