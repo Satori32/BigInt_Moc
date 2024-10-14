@@ -65,6 +65,10 @@ BigInt Mul(BigInt& In, BigInt& B)
 bool DivEQ(BigInt& In, BigInt B);
 BigInt Div(BigInt& In, BigInt& B);
 BigInt Mod(BigInt& In, BigInt B);
-
-
-
+bool Inclimental(BigInt& In);
+bool Declimental(BigInt& In);
+template<class T> BigInt Add(BigInt& In, T Number);
+template<class T> BigInt Sub(BigInt& In, T Number);
+template<class T> BigInt Mul(BigInt& In, T Number);
+template<class T> BigInt Div(BigInt& In, T Number);
+template<class T> BigInt Mod(BigInt& In, T Number);

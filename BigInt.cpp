@@ -466,3 +466,57 @@ BigInt Mod(BigInt& In, BigInt B) {
 
     return E;
 }
+
+bool Inclimental(BigInt& In) {
+    BigInt B = MakeBasic(1);
+    bool X=AddEQ(In, B);
+    Free(B);
+    return X;
+}
+bool Declimental(BigInt& In) {
+    BigInt B = MakeBasic(1);
+    bool X=SubEQ(In, B);
+    Free(B);
+    return X;
+}
+
+template<class T>
+BigInt Add(BigInt& In,T Number){
+    BigInt B = MakeBasic<T>(Number);
+    BigInt C = Add(In, B);
+    Free(B);
+
+    return C;
+}
+template<class T>
+BigInt Sub(BigInt& In,T Number){
+    BigInt B = MakeBasic<T>(Number);
+    BigInt C = Sub(In, B);
+    Free(B);
+
+    return C;
+}
+template<class T>
+BigInt Mul(BigInt& In,T Number){
+    BigInt B = MakeBasic<T>(Number);
+    BigInt C = Mul(In, B);
+    Free(B);
+
+    return C;
+}
+template<class T>
+BigInt Div(BigInt& In,T Number){
+    BigInt B = MakeBasic<T>(Number);
+    BigInt C = Div(In, B);
+    Free(B);
+
+    return C;
+}
+template<class T>
+BigInt Mod(BigInt& In,T Number){
+    BigInt B = MakeBasic<T>(Number);
+    BigInt C = Mod(In, B);
+    Free(B);
+
+    return C;
+}
