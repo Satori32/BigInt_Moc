@@ -199,7 +199,7 @@ BigInt Not(BigInt& In) {
     return C;
 }
 bool XorEQ(BigInt& In, BigInt& B) {
-    BigInt C = Or(In, B);
+    BigInt C = Xor(In, B);
     Free(In);
     In = C;
     return true;
@@ -215,7 +215,7 @@ BigInt Xor(BigInt& In, BigInt& B) {
     return C;
 }
 bool NandEQ(BigInt& In, BigInt& B) {
-    BigInt C = Or(In, B);
+    BigInt C = Nand(In, B);
     Free(In);
     In = C;
     return true;
@@ -231,7 +231,7 @@ BigInt Nand(BigInt& In, BigInt& B) {
     return C;
 }
 bool NorEQ(BigInt& In, BigInt& B) {
-    BigInt C = Or(In, B);
+    BigInt C = Nor(In, B);
     Free(In);
     In = C;
     return true;
@@ -247,7 +247,7 @@ BigInt Nor(BigInt& In, BigInt& B) {
     return C;
 }
 bool EqualEQ(BigInt& In, BigInt& B) {
-    BigInt C = Or(In, B);
+    BigInt C = Equal(In, B);
     Free(In);
     In = C;
     return true;
