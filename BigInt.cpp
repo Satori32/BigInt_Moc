@@ -463,7 +463,7 @@ BigInt Div(BigInt& In, BigInt& B) {
     }
     return C;
 }
-bool DivEQ(BigInt& In, BigInt B) {
+bool ModEQ(BigInt& In, BigInt& B) {
     BigInt C = Mod(In, B);
     Free(In);
     In = C;

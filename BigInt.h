@@ -64,7 +64,7 @@ bool MulEQ(BigInt& In, BigInt B);
 BigInt Mul(BigInt& In, BigInt& B);
 bool DivEQ(BigInt& In, BigInt B);
 BigInt Div(BigInt& In, BigInt& B);
-bool DivEQ(BigInt& In, BigInt B);
+bool ModEQ(BigInt& In, BigInt B);
 BigInt Mod(BigInt& In, BigInt B);
 bool Inclimental(BigInt& In);
 bool Declimental(BigInt& In);
